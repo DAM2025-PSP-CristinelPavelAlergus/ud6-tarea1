@@ -16,14 +16,14 @@ void main() {
         println("--- Interfaces de red ---\n");
 
         System.out.printf("| %-10s | %-10s | %-10s |%n", "Nombre", "Activa", "Con conexión a internet");
-        println("-".repeat(27));
+        println("-".repeat(53));
 
         while (networkInterfaces.hasMoreElements()) {
             NetworkInterface networkInterface = networkInterfaces.nextElement();
             if (isNotPhysicalInterface(networkInterface)) {
                 continue; // Ignoramos las interfaces virtuales
             }
-            System.out.printf("| %-10s | %-10b | %-10b |%n", networkInterface.getDisplayName(), networkInterface.isUp(), hasInternetAccess(networkInterface));
+            System.out.printf("| %-10s | %-10b | %-23b |%n", networkInterface.getDisplayName(), networkInterface.isUp(), hasInternetAccess(networkInterface));
         }
     } catch (SocketException e) {
         System.err.println("No se pudo obtener la lista de interfaces de red: " + e.getLocalizedMessage());
@@ -54,5 +54,6 @@ static boolean hasInternetAccess(NetworkInterface netIf) {
         } catch (IOException _) {
         }
     }
+
     return false; // Si ninguna IP de la interfaz logró conectar
 }
